@@ -60,7 +60,7 @@ async function copyQRCodeToClipboard(canvasElement) {
       shareButtonIconElement.style.display = 'inline-block';
     }, 3000)
   } catch (error) {
-    alert("Falha ao copiar QR Code.");
+    alert(`Falha ao copiar QR Code: ${error}`);
   }
 }
 
