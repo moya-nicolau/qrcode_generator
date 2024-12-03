@@ -46,19 +46,29 @@ async function copyQRCodeToClipboard(canvasElement) {
 
     const blob = await new Promise(resolve => canvasWithBorder.toBlob(resolve, "image/png"));
 
-    const clipboardItem = new ClipboardItem({ "image/png": blob });
+    const url = URL.createObjectURL(blob);
 
-    await navigator.clipboard.write([clipboardItem]);
+    const makeImagePromise = async () => {
+      const data = await fetch(url);
+      return await data.blob();
+    };
 
-    shareButtonTextElement.textContent = 'Copied!'
+    await navigator.clipboard.write(
+      [new ClipboardItem({ "image/png": makeImagePromise() })]
+    );
+
+    shareButtonTextElement.textContent = 'Copied!';
     shareButtonIconElement.style.display = 'none';
 
     intervalId = setInterval(() => {
       clearInterval(intervalId);
 
-      shareButtonTextElement.textContent = 'Copy'
+      shareButtonTextElement.textContent = 'Copy';
       shareButtonIconElement.style.display = 'inline-block';
-    }, 3000)
+    }, 3000);
+
+    URL.revokeObjectURL(url);
+
   } catch (error) {
     alert(`Falha ao copiar QR Code: ${error}`);
   }
