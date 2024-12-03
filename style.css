@@ -1,0 +1,149 @@
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111629;
+  background-image: url("./assets/bg-illustration.svg");
+  background-position: 90% -10%;
+  background-repeat: no-repeat;
+  background-size: auto min(90vh, 100vw);
+}
+
+#first-step {
+  gap: 30px;
+  display: flex;
+  margin-top: 28vh;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-wrapper {
+  padding: 7px;
+  width: 40vw;
+  height: 6vh;
+  border-radius: 15px;
+  border: solid 2px #3662E3;
+  background-color: #030617;
+  display: flex;
+  justify-content: space-between;
+  max-width: 600px;
+}
+
+.logo {
+  height: 5vh
+}
+
+#first-step .button {
+  padding: 0 2vw;
+}
+
+.button {
+  background-color: #3662E3;
+  border: none;
+  color: white;
+  height: 100%;
+  width: auto;
+  border-radius: 10px;
+  text-wrap: nowrap;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.button:hover {
+  cursor: pointer
+}
+
+#first-step input {
+  width: 100%;
+  margin: 0 10px 0 0;
+  background-color: #030617;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.qrcode-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f2e55;
+  width: 50vmin;
+  height: 50vmin;
+  border-radius: 50%;
+  z-index: 0; 
+  min-width: 230px;
+  min-height: 230px;
+}
+
+#qrcode {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+#second-step {
+  display: none;
+  flex-direction: column;
+  row-gap: 10vh;
+  padding: 5vh 0;
+  width: 100%
+}
+
+#second-step .logo {
+  margin: 0 auto 0 2vw;
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 20vw;
+  margin: 0 auto;
+  column-gap: 1vw;
+  min-width: 300px;
+}
+
+.buttons-wrapper .button {
+  padding: 10px;
+  width: 100% !important;
+  height: 6vh; 
+}
+
+.icon {
+  height: 2vh;
+  color: white;
+}
+
+#home:hover {
+  cursor: pointer;
+}
+
+#error-message {
+  color: red;
+  margin-top: -22px;
+  display: none;
+}
+
+@media (width <= 1250px) {
+  .input-wrapper {
+    width: 80vw;
+  }
+}
