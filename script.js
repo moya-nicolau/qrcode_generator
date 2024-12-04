@@ -46,32 +46,36 @@ async function copyQRCodeToClipboard(canvasElement) {
 
     const blob = await new Promise(resolve => canvasWithBorder.toBlob(resolve, "image/png"));
 
-    const url = URL.createObjectURL(blob);
+    const clipboardItem = new ClipboardItem({ "image/png": blob });
 
-    const makeImagePromise = async () => {
-      const data = await fetch(url);
-      return await data.blob();
-    };
+    await navigator.clipboard.write([clipboardItem]);
 
-    await navigator.clipboard.write(
-      [new ClipboardItem({ "image/png": makeImagePromise() })]
-    );
-
-    shareButtonTextElement.textContent = 'Copied!';
+    shareButtonTextElement.textContent = 'Copied!'
     shareButtonIconElement.style.display = 'none';
 
     intervalId = setInterval(() => {
       clearInterval(intervalId);
 
-      shareButtonTextElement.textContent = 'Copy';
+      shareButtonTextElement.textContent = 'Share'
       shareButtonIconElement.style.display = 'inline-block';
-    }, 3000);
-
-    URL.revokeObjectURL(url);
-
+    }, 3000)
   } catch (error) {
     alert(`Falha ao copiar QR Code: ${error}`);
   }
+}
+
+async function shareQRCode(canvasElement) {
+  const canvasWithBorder = addWhiteBorderToQRCode(canvasElement, 20);
+
+  const blob = await new Promise(resolve => canvasWithBorder.toBlob(resolve, "image/png"));
+
+  var file = new File([blob], "picture.jpg", {type: 'image/jpeg'});
+
+  navigator.share({
+    text: '',
+    title: '',
+    files: [file],
+  });
 }
 
 submitButtonElement.addEventListener("click", () => {
@@ -130,7 +134,7 @@ shareButtonElement.addEventListener("click", async () => {
   const canvasElement = qrCodeElement.querySelector("canvas");
 
   if (canvasElement) {
-    copyQRCodeToClipboard(canvasElement);
+    navigator.canShare ? shareQRCode(canvasElement) : copyQRCodeToClipboard(canvasElement);
   } else {
     alert("QR Code não encontrado!");
   }
